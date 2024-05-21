@@ -1,0 +1,68 @@
+import numpy as np
+from matplotlib import pyplot as plt
+
+with open('Tes1banget.txt') as f:
+    content = [line.split() for line in f]
+
+keys = content[0]
+
+lst = list(zip([keys]*(len(content)), content[1:]))
+x = [zip(i[0], i[1]) for i in lst]
+z = [dict(i) for i in x]
+
+data_set1 = []
+data_set2 = []
+data_set3 = []
+data_set4 = []
+N_len = []
+
+for i in z:          
+        subs1 =[i['subject1']]
+        subs1 = list(map(float, subs1))
+        data_set1.append(subs1)
+        
+        subs2 =[i['subject2']]
+        subs2 = list(map(float, subs2))
+        data_set2.append(subs2)
+    
+        subs3 =[i['subject3']]
+        subs3 = list(map(float, subs3))
+        data_set3.append(subs3)
+    
+        subs4 =[i['subject1']]
+        subs4 = list(map(float, subs4))
+        data_set4.append(subs4)
+
+
+N = len(content)-1
+
+yf1 = np.abs(np.fft.fft(data_set1))[0:N//2]
+xf1 = np.linspace(0,10000, len(yf1))[0:N//2]
+yf2 = np.abs(np.fft.fft(data_set2))[0:N//2]
+xf2 = np.linspace(0,10000, len(yf2))[0:N//2]
+yf3 = np.abs(np.fft.fft(data_set3))[0:N//2]
+xf3 = np.linspace(0,10000, len(yf3))[0:N//2]
+yf4 = np.abs(np.fft.fft(data_set4))[0:N//2]
+xf4 = np.linspace(0,10000, len(yf4))[0:N//2]
+
+for a in range(0,N,1):
+    N_len.append(a)
+
+plt.plot(N_len, data_set1)
+plt.show()
+plt.plot(N_len, data_set2)
+plt.show()
+plt.plot(N_len, data_set3)
+plt.show()
+plt.plot(N_len, data_set4)
+plt.show()
+
+plt.plot(xf1, yf1)
+plt.show()
+plt.plot(xf2, yf2)
+plt.show()
+plt.plot(xf3, yf3)
+plt.show()
+plt.plot(xf4, yf4)
+plt.show()
+
